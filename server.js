@@ -1,4 +1,4 @@
-require('dotenv').config();
+﻿require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
@@ -53,8 +53,13 @@ redis.connect();
 // ============================
 // HARD-CODED LOCATIONS (fixes Vercel forever)
 // ============================
-app.get(['/locations', '/api/locations'], (req, res) => {
-  res.json([
+// ============================
+// FULL HARD-CODED LOCATIONS (copy-paste this exact block)
+// ============================
+// ============================
+// FULL HARD-CODED LOCATIONS (copy-paste this exact block)
+// ============================
+const locations = [
     { n: "Goodsprings Saloon", lat: 35.8324, lng: -115.4320, lvl: 1, rarity: "common" },
     { n: "Primm Rollercoaster", lat: 35.6145, lng: -115.3845, lvl: 2, rarity: "common" },
     { n: "Novac Motel", lat: 35.0525, lng: -114.8247, lvl: 5, rarity: "rare" },
@@ -257,15 +262,15 @@ app.get(['/locations', '/api/locations'], (req, res) => {
     { n: "Vault 92", lat: 38.900, lng: -77.300, lvl: 25, rads: 80 },
     { n: "Vault 106", lat: 38.800, lng: -77.400, lvl: 32, rads: 120 },
     { n: "Vault 112", lat: 38.700, lng: -77.500, lvl: 28, rads: 100 },
-    { n: "Mothership Zeta", lat: 0, lng: 0, lvl: 99, rarity: "legendary" }  the rest of your locations here
-]
-];
+    { n: "Mothership Zeta", lat: 0, lng: 0, lvl: 99, rarity: "legendary" }  the rest of your locations here];
 
 // ============================
 // Routes
 // ============================
-app.get('/locations', (req, res) => res.json(locations));
-app.get('/locations', (req, res) => res.json(locations));
+app.get('/locations', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.json(locations);
+});
 
 app.get('/player/:wallet', async (req, res) => {
     try {
